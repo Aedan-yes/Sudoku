@@ -1,0 +1,50 @@
+My program is supposed to generate a 9 x 9 completed sudoku board following the rules of sudoku. By using Math.random to generate random numbers, and three methods to complete and print the board, a sudoku board can be generated. (HOwever my program doesn’t work)
+
+I used only one 2D array which is board. It is a 9x9 grid. I use it in all three methods, one to print the board, one to fill it, and one to validate the inputs inside the board. 
+
+For filling the board, public static void fillBoard(int[][] board){
+   for(int i = 0; i< board.length; i++){
+
+
+       for(int j = 0; j< board[i].length; j++){
+           int temp = (int)(Math.random()*9)+1;
+           while(confirm(board, i, j, temp)==false){
+               temp = (int)(Math.random()*9)+1;
+           }
+           board[i][j] = temp;
+
+
+       }
+
+
+   }
+}
+I used a nested loop to loop through each element of board. In the second for loop, I declare temp which is just a random number between 1 and 10.  Then, I check using a while loop which calls the validation method whether or not temp is a valid input. If it is, the spot will be filled with that number and it repeats.
+
+For the confirm method, public static boolean confirm(int[][] board, int r, int c, int te){
+
+
+   for(int i = 0; i<9; i++){
+       if(board[r][i] == te) return false;
+   }
+   for(int j = 0; j<9; j++){
+       if(board[j][c] == te)return false;
+   }
+   int temp = (r/3) * 3;
+   int temp2 = (c/3)*3;
+   for(int k = temp; k<temp+3; k++){
+       for(int l = temp2; l<temp2+3; l++){
+           if(board[k][l]== te) return false;
+       }
+   }
+   return true;
+}
+I use three separate loops. The first for loop checks te, which is the input. If te matches any number in the row, confirm will give false and fillBoard resets. Then the next one checks the column. 
+
+Then, if both are true, I have to check the smaller boxes within the board. To do so, I declare two variables, temp and temp2. Temp gives the row position of the smaller box, and temp2 gives the column position of the smaller box. This also divide the board into these smaller boxes. 
+
+Next I use a nested loop, By doing + 3, I check all elements of that smaller box. In the second loop, I check whether the element of the smaller box is equal to the te. If it is, reset and create another random number.
+
+I tested my program by pressing the run button. The program doesn’t work and I’ve spent some time trying to figure out why. However I don’t understand.
+
+A challenge I faced was actually trying to make the last part of the confirm method. I had to do some research on the board itself to understand how it works and a little bit of math. 
